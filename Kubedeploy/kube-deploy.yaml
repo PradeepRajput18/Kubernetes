@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-depl
+spec:
+  selector:
+    matchLabels:
+      app: kube
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kube
+    spec:
+      containers:
+      - name: kube
+        image: srisri13/firstimage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-srv
+spec:
+  type: NodePort
+  selector:
+    app: kube
+  ports:
+    - name: my-app
+      port: 3000
+      targetPort: 3000
